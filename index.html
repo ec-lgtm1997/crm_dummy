@@ -131,7 +131,7 @@ input[type=text],select,textarea{border:1px solid #AEB8BD;border-radius:3px;padd
 <h1>Meine aktiven Kunden <i class="ti ti-chevron-down" style="font-size:18px"></i></h1>
 <div class="chips" id="kf"><span class="chip on" data-f="all">Alle</span><span class="chip" data-f="Interessent">Interessent</span><span class="chip" data-f="Petent">Petent</span><span class="chip" data-f="Bestandskunde">Bestandskunde</span><input type="text" id="ks" class="f" placeholder="Kunden filtern" style="margin-left:8px"></div>
 <p class="err" id="err">Wähle mindestens einen Kunden aus.</p>
-<div class="card"><table><thead><tr><th style="width:34px"><span class="bx" id="all"><i class="ti ti-check"></i></span></th><th>Name</th><th>Typ</th><th>Ansprechpartner</th><th class="hide-m">Betreuer</th><th class="hide-m">Letzter Kontakt</th></tr></thead><tbody id="kb"></tbody></table></div>
+<div class="card"><table><thead><tr><th style="width:34px"><span class="bx" id="all"><i class="ti ti-check"></i></span></th><th>Name</th><th>Typ</th><th class="hide-m">Anschlusspunkte</th><th class="hide-m">Spannungsebenen</th><th>Verträge</th><th>Ansprech&shy;partner</th><th class="hide-m">Letzter Kontakt</th></tr></thead><tbody id="kb"></tbody></table></div>
 <p style="color:var(--mut);font-size:12px" id="cnt"></p>
 </div>
 </section>
@@ -144,19 +144,34 @@ input[type=text],select,textarea{border:1px solid #AEB8BD;border-radius:3px;padd
 <div style="flex:1"><div style="font-size:19px;font-weight:600;color:var(--brand)">Beispiel Stadtwerke GmbH</div><div style="color:var(--mut);font-size:13px">Kundennr. 100234 · Betreuer: Team NNK</div></div>
 <span class="bd b-best">Bestandskunde</span>
 </div>
-<div class="tabs" id="tabs"><span class="tab" data-p="0">Übersicht</span><span class="tab on" data-p="1">Verträge</span><span class="tab" data-p="2">Historie</span></div>
-
-<div class="pn">
-<div class="grid2">
-<div class="fld"><div class="l">Ansprechpartner</div><div class="v">Erika Mustermann</div></div>
-<div class="fld"><div class="l">E-Mail</div><div class="v">e.mustermann@beispiel.example</div></div>
-<div class="fld"><div class="l">Anschlusspunkt</div><div class="v">UW Beispielstadt</div></div>
-<div class="fld"><div class="l">Spannungsebene</div><div class="v">110 kV</div></div>
-<div class="fld"><div class="l">Verträge</div><div class="v">4, davon 2 in Bearbeitung</div></div>
-<div class="fld"><div class="l">Letzter Kontakt</div><div class="v">vor 2 Tagen</div></div>
-</div></div>
+<div class="tabs" id="tabs"><span class="tab on" data-p="0">Übersicht</span><span class="tab" data-p="1">Verträge</span><span class="tab" data-p="2">Historie</span></div>
 
 <div class="pn on">
+<div class="kpis" style="margin-bottom:6px">
+<div class="kpi"><div class="l">Anschlusspunkte</div><div class="v">3</div></div>
+<div class="kpi"><div class="l">Spannungsebenen</div><div class="v" style="font-size:22px;padding:3px 0">110 / 380 kV</div></div>
+<div class="kpi"><div class="l">Verträge</div><div class="v">4 <span style="font-size:13px;font-weight:400;color:var(--mut)">2 in Bearbeitung</span></div></div>
+<div class="kpi"><div class="l">Ansprechpartner</div><div class="v">7</div></div>
+</div>
+<h2>Ansprechpartner</h2>
+<div class="card"><table><thead><tr><th>Rolle</th><th>Name</th><th class="hide-m">E-Mail</th><th class="hide-m">Telefon</th></tr></thead><tbody>
+<tr><td>Kaufmännischer Geschäftsführer</td><td><b>Erika Mustermann</b></td><td class="hide-m">e.mustermann@beispiel.example</td><td class="hide-m">0711 000 101</td></tr>
+<tr><td>Technischer Geschäftsführer</td><td><b>Thomas Beispiel</b></td><td class="hide-m">t.beispiel@beispiel.example</td><td class="hide-m">0711 000 102</td></tr>
+<tr><td>Leiter Netzwirtschaft</td><td><b>Julia Probe</b></td><td class="hide-m">j.probe@beispiel.example</td><td class="hide-m">0711 000 110</td></tr>
+<tr><td>Leiter Netzausbau</td><td><b>Karl Demo</b></td><td class="hide-m">k.demo@beispiel.example</td><td class="hide-m">0711 000 120</td></tr>
+<tr><td>Teamleiter Asset Management</td><td><b>Sven Muster</b></td><td class="hide-m">s.muster@beispiel.example</td><td class="hide-m">0711 000 130</td></tr>
+<tr><td>Leiter Netzbetrieb</td><td><b>Anna Test</b></td><td class="hide-m">a.test@beispiel.example</td><td class="hide-m">0711 000 140</td></tr>
+<tr><td>Sachbearbeiter Netzanschluss</td><td><b>Lea Probe</b></td><td class="hide-m">l.probe@beispiel.example</td><td class="hide-m">0711 000 150</td></tr>
+</tbody></table></div>
+<h2>Anschlusspunkte</h2>
+<div class="card"><table><thead><tr><th>Anschlusspunkt</th><th>Spannungsebene</th><th>Leistung</th><th>Verträge</th></tr></thead><tbody>
+<tr><td><b>UW Beispielstadt Nord</b></td><td>110 kV</td><td>60 MW</td><td>2</td></tr>
+<tr><td><b>UW Beispielstadt Süd</b></td><td>110 kV</td><td>40 MW</td><td>1</td></tr>
+<tr><td><b>UW Musterhausen</b></td><td>380 kV</td><td>120 MW</td><td>1</td></tr>
+</tbody></table></div>
+</div>
+
+<div class="pn">
 <div class="chips" id="vf"><span class="chip on" data-f="all">Alle</span><span class="chip" data-f="bearb">In Bearbeitung</span><span class="chip" data-f="fertig">Abgeschlossen</span></div>
 <div class="card"><table><thead><tr><th>Vertrag</th><th>Status</th><th>Ablage in ELO</th><th class="hide-m">Zuständig</th><th class="hide-m">Stand</th></tr></thead><tbody id="vb"></tbody></table></div>
 </div>
@@ -211,6 +226,8 @@ input[type=text],select,textarea{border:1px solid #AEB8BD;border-radius:3px;padd
 <div class="mo" id="mo"><div class="dlg">
 <h3><i class="ti ti-mail"></i> Sammelmail</h3>
 <div class="lab">An</div><div class="to" id="to"></div>
+<div class="lab">Ansprechpartner pro Kunde</div>
+<select id="role"><option>Alle hinterlegten Ansprechpartner</option><option>Nur Geschäftsführung (kaufmännisch und technisch)</option><option>Nur Leiter Netzwirtschaft</option><option>Nur Leiter Netzausbau</option><option>Nur Asset Management</option></select>
 <div class="lab">Vorlage</div>
 <select id="tpl"><option value="0">Information an Bestandskunden</option><option value="1">Einladung Jahresgespräch</option><option value="2">Leere Mail</option></select>
 <div class="lab">Betreff</div><input type="text" id="subj">
@@ -222,11 +239,11 @@ input[type=text],select,textarea{border:1px solid #AEB8BD;border-radius:3px;padd
 
 <script>
 var K=[
-{n:"Beispiel Stadtwerke GmbH",t:"Bestandskunde",a:"Erika Mustermann",b:"Team NNK",l:"vor 2 Tagen"},
-{n:"Beispiel Netz AG",t:"Bestandskunde",a:"Max Beispiel",b:"Team NNK",l:"vor 1 Woche"},
-{n:"Demo Rechenzentrum GmbH",t:"Interessent",a:"Jana Demo",b:"Team NNK",l:"vor 3 Tagen"},
-{n:"Muster Industriepark AG",t:"Petent",a:"Peter Muster",b:"Team NNK",l:"gestern"},
-{n:"Beispiel Energie GmbH",t:"Bestandskunde",a:"Sabine Probe",b:"Team NNK",l:"vor 5 Tagen"}
+{n:"Beispiel Stadtwerke GmbH",t:"Bestandskunde",p:"3",s:"110 / 380 kV",v:"4",c:"7",l:"vor 2 Tagen"},
+{n:"Beispiel Netz AG",t:"Bestandskunde",p:"1",s:"110 kV",v:"2",c:"3",l:"vor 1 Woche"},
+{n:"Demo Rechenzentrum GmbH",t:"Interessent",p:"–",s:"–",v:"0",c:"2",l:"vor 3 Tagen"},
+{n:"Muster Industriepark AG",t:"Petent",p:"1 (geplant)",s:"110 kV",v:"1",c:"3",l:"gestern"},
+{n:"Beispiel Energie GmbH",t:"Bestandskunde",p:"2",s:"110 kV",v:"3",c:"5",l:"vor 5 Tagen"}
 ];
 var V=[
 {n:"Netzanschlussvertrag",s:"fertig",st:"Abgeschlossen",c:"ok",e:"Netzkunden/Beispiel Stadtwerke/Verträge/NAV",z:"Team NNK",d:"03/2022"},
@@ -249,7 +266,7 @@ function cls(t){return t==="Bestandskunde"?"b-best":t==="Petent"?"b-pet":"b-int"
 function rows(){return K.map(function(k,i){return {k:k,i:i}}).filter(function(o){return(filt==="all"||o.k.t===filt)&&o.k.n.toLowerCase().indexOf(q)>-1})}
 function render(){
 var r=rows(),h="";
-r.forEach(function(o){h+='<tr class="rw'+(sel[o.i]?' sel':'')+'" data-i="'+o.i+'"><td><span class="bx'+(sel[o.i]?' on':'')+'"><i class="ti ti-check"></i></span></td><td><a class="lnk" data-open="'+o.i+'">'+o.k.n+'</a></td><td><span class="bd '+cls(o.k.t)+'">'+o.k.t+'</span></td><td>'+o.k.a+'</td><td class="hide-m">'+o.k.b+'</td><td class="hide-m">'+o.k.l+'</td></tr>'});
+r.forEach(function(o){h+='<tr class="rw'+(sel[o.i]?' sel':'')+'" data-i="'+o.i+'"><td><span class="bx'+(sel[o.i]?' on':'')+'"><i class="ti ti-check"></i></span></td><td><a class="lnk" data-open="'+o.i+'">'+o.k.n+'</a></td><td><span class="bd '+cls(o.k.t)+'">'+o.k.t+'</span></td><td class="hide-m">'+o.k.p+'</td><td class="hide-m">'+o.k.s+'</td><td>'+o.k.v+'</td><td>'+o.k.c+'</td><td class="hide-m">'+o.k.l+'</td></tr>'});
 $("kb").innerHTML=h;
 var n=Object.keys(sel).filter(function(i){return sel[i]}).length;
 $("cnt").textContent=n+" von "+K.length+" ausgewählt";
@@ -269,7 +286,7 @@ $("to").innerHTML=c.map(function(k){return '<span class="bd b-int">'+k.n+'</span
 $("tpl").addEventListener("change",tpl);
 $("cancel").addEventListener("click",function(){$("mo").className="mo"});
 $("mo").addEventListener("click",function(e){if(e.target===$("mo"))$("mo").className="mo"});
-$("send").addEventListener("click",function(){$("ok").textContent="Beispiel: Mail an "+chosen().length+" Kunden vorbereitet, es wurde nichts versendet."});
+$("send").addEventListener("click",function(){$("ok").textContent="Beispiel: Mail an "+chosen().length+" Kunden vorbereitet ("+$("role").value+"), es wurde nichts versendet."});
 var tb=document.querySelectorAll("#tabs .tab"),pn=document.querySelectorAll("#v-akte .pn");
 tb.forEach(function(t){t.addEventListener("click",function(){var p=+t.getAttribute("data-p");tb.forEach(function(x,j){x.className="tab"+(j===p?" on":"")});pn.forEach(function(x,j){x.className="pn"+(j===p?" on":"")})})});
 function vrender(f){$("vb").innerHTML=V.filter(function(v){return f==="all"||v.s===f}).map(function(v){return '<tr><td><b>'+v.n+'</b></td><td><span class="bd b-'+v.c+'">'+v.st+'</span></td><td><span class="elo"><i class="ti ti-folder"></i>'+v.e+'</span></td><td class="hide-m">'+v.z+'</td><td class="hide-m">'+v.d+'</td></tr>'}).join("")}
