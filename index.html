@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CRM Netzkunden – Klick-Dummy</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+:root{--brand:#17435C;--olive:#A5AD1B;--teal:#6A9FAA;--grey:#7F7F7F;--bg:#F3F5F6;--line:#D9DEE1;--txt:#1F2A30;--mut:#5E6B72}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Segoe UI",Arial,sans-serif;color:var(--txt);background:var(--bg);font-size:14px}
+button,input,select,textarea{font:inherit}
+header{background:var(--brand);color:#fff;height:48px;display:flex;align-items:center;gap:14px;padding:0 16px;position:sticky;top:0;z-index:5}
+header .t{font-weight:600;font-size:15px;flex:1}
+header .s{background:rgba(255,255,255,.15);border-radius:3px;padding:5px 12px;display:flex;align-items:center;gap:6px;font-size:13px;min-width:160px}
+header .av{width:28px;height:28px;border-radius:50%;background:var(--olive);color:#17252B;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600}
+.ban{background:var(--olive);color:#17252B;font-size:12px;padding:4px 16px;text-align:center}
+.wrap{display:flex;min-height:calc(100vh - 78px)}
+nav{width:210px;background:#fff;border-right:1px solid var(--line);padding:8px 0;flex:none}
+nav button{display:flex;align-items:center;gap:10px;width:100%;border:0;background:none;padding:10px 16px;font-size:14px;color:var(--txt);cursor:pointer;border-left:3px solid transparent;text-align:left}
+nav button:hover{background:var(--bg)}
+nav button.on{background:#E8EFF2;border-left-color:var(--olive);font-weight:600;color:var(--brand)}
+nav i{font-size:18px;color:var(--brand)}
+.main{flex:1;min-width:0}
+.cmd{background:#fff;border-bottom:1px solid var(--line);display:flex;gap:2px;padding:4px 12px;flex-wrap:wrap}
+.cmd button{display:flex;align-items:center;gap:6px;border:0;background:none;padding:7px 10px;border-radius:3px;cursor:pointer;color:var(--txt)}
+.cmd button:hover{background:var(--bg)}
+.cmd i{color:var(--brand);font-size:17px}
+.page{padding:16px 20px;max-width:1100px}
+h1{font-size:20px;font-weight:600;margin:0 0 12px;display:flex;align-items:center;gap:8px;color:var(--brand)}
+h2{font-size:15px;font-weight:600;margin:18px 0 8px}
+.card{background:#fff;border:1px solid var(--line);border-radius:3px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.kpi{background:#fff;border:1px solid var(--line);border-top:3px solid var(--brand);border-radius:3px;padding:12px 14px}
+.kpi:nth-child(even){border-top-color:var(--teal)}
+.kpi .l{font-size:12px;color:var(--mut)}
+.kpi .v{font-size:28px;font-weight:600;color:var(--brand)}
+table{width:100%;border-collapse:collapse}
+th{font-size:12px;font-weight:600;color:var(--mut);text-align:left;padding:8px 10px;background:#FAFBFB;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr.rw{cursor:pointer}
+tr.rw:hover td{background:#F7FAFB}
+tr.sel td{background:#E8EFF2}
+.lnk{color:var(--brand);font-weight:600;cursor:pointer;text-decoration:none}
+.lnk:hover{text-decoration:underline}
+.bd{font-size:12px;padding:2px 9px;border-radius:3px;white-space:nowrap;display:inline-block}
+.b-best{background:#E8EFF2;color:#17435C}
+.b-pet{background:#FFF1CC;color:#7A5300}
+.b-int{background:#DCEBEE;color:#2F5F6B}
+.b-ok{background:#EEF0C4;color:#565B08}
+.b-bear{background:#FFF1CC;color:#7A5300}
+.b-sig{background:#DCEBEE;color:#2F5F6B}
+.bx{width:16px;height:16px;border:1px solid #8A969C;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;color:transparent;cursor:pointer;vertical-align:middle}
+.bx.on{background:var(--brand);border-color:var(--brand);color:#fff}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px;align-items:center}
+.chip{border:1px solid var(--line);background:#fff;border-radius:14px;padding:4px 13px;cursor:pointer;font-size:13px}
+.chip.on{background:var(--brand);border-color:var(--brand);color:#fff}
+input[type=text],select,textarea{border:1px solid #AEB8BD;border-radius:3px;padding:7px 10px;background:#fff;width:100%}
+.f{width:auto;min-width:220px}
+.tabs{display:flex;gap:22px;border-bottom:1px solid var(--line);margin:10px 0 14px}
+.tab{padding:8px 0;cursor:pointer;color:var(--mut);border-bottom:3px solid transparent}
+.tab.on{color:var(--brand);font-weight:600;border-bottom-color:var(--olive)}
+.pn{display:none}.pn.on{display:block}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px 24px}
+.fld .l{font-size:12px;color:var(--mut)}
+.fld .v{font-size:14px;padding:4px 0;border-bottom:1px solid var(--line)}
+.elo{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--brand);background:#E8EFF2;padding:3px 8px;border-radius:3px;cursor:pointer}
+.bpf{display:flex;background:#fff;border:1px solid var(--line);border-radius:3px;overflow:hidden;margin-bottom:16px}
+.st{flex:1;padding:12px 8px;text-align:center;font-size:13px;color:var(--mut);border-right:1px solid var(--line);cursor:pointer}
+.st:last-child{border-right:0}
+.st.done{color:var(--brand)}
+.st.cur{background:var(--brand);color:#fff;font-weight:600}
+.st i{display:block;font-size:18px;margin-bottom:2px}
+.bar{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.bar .n{width:110px;color:var(--mut)}
+.bar .f2{height:18px;background:var(--brand);border-radius:2px}
+.bar:nth-child(even) .f2{background:var(--teal)}
+.btn{border:1px solid var(--brand);background:var(--brand);color:#fff;border-radius:3px;padding:8px 18px;cursor:pointer}
+.btn.sec{background:#fff;color:var(--brand)}
+.mo{position:fixed;inset:0;background:rgba(15,30,38,.5);display:none;align-items:center;justify-content:center;z-index:20;padding:16px}
+.mo.on{display:flex}
+.dlg{background:#fff;border-radius:4px;width:100%;max-width:560px;max-height:92vh;overflow:auto;padding:18px 20px}
+.dlg h3{margin:0 0 12px;font-size:17px;color:var(--brand)}
+.lab{font-size:12px;color:var(--mut);margin:10px 0 4px}
+.to{display:flex;flex-wrap:wrap;gap:5px}
+.msg{font-size:13px;margin-top:10px;color:#565B08}
+.err{color:#A4262C;font-size:13px;margin:0 0 8px;display:none}
+@media(max-width:800px){.wrap{flex-direction:column}nav{width:100%;display:flex;overflow-x:auto;padding:0;border-right:0;border-bottom:1px solid var(--line)}nav button{width:auto;white-space:nowrap;border-left:0;border-bottom:3px solid transparent}nav button.on{border-bottom-color:var(--olive)}.hide-m{display:none}.page{padding:12px}}
+</style>
+</head>
+<body>
+<header>
+<i class="ti ti-grid-dots" style="font-size:20px"></i>
+<span class="t">CRM Netzkunden</span>
+<span class="s hide-m"><i class="ti ti-search"></i>Suchen</span>
+<i class="ti ti-bell" style="font-size:20px"></i>
+<span class="av">EM</span>
+</header>
+<div class="ban">Prototyp zur Veranschaulichung – alle Daten sind fiktiv, es wird nichts gespeichert oder versendet.</div>
+<div class="wrap">
+<nav id="nav">
+<button data-v="start" class="on"><i class="ti ti-home"></i>Start</button>
+<button data-v="kunden"><i class="ti ti-users"></i>Kunden</button>
+<button data-v="vorgang"><i class="ti ti-file-text"></i>Vorgänge</button>
+<button data-v="auswertung"><i class="ti ti-chart-bar"></i>Auswertung</button>
+</nav>
+<div class="main">
+
+<section id="v-start">
+<div class="cmd"><button><i class="ti ti-plus"></i>Neue Anfrage</button><button><i class="ti ti-refresh"></i>Aktualisieren</button></div>
+<div class="page">
+<h1>Meine Übersicht</h1>
+<div class="kpis">
+<div class="kpi"><div class="l">Offene Vorgänge</div><div class="v">14</div></div>
+<div class="kpi"><div class="l">Wiedervorlagen heute</div><div class="v">3</div></div>
+<div class="kpi"><div class="l">Verträge in Bearbeitung</div><div class="v">8</div></div>
+<div class="kpi"><div class="l">Neue Anfragen</div><div class="v">5</div></div>
+</div>
+<h2>Meine Aufgaben</h2>
+<div class="card"><table>
+<tr><td><i class="ti ti-phone"></i> Rückruf Muster Industriepark AG</td><td style="text-align:right;color:var(--mut)">heute</td></tr>
+<tr><td><i class="ti ti-file-text"></i> Vertrag prüfen, Beispiel Energie GmbH</td><td style="text-align:right;color:var(--mut)">Mittwoch</td></tr>
+<tr><td><i class="ti ti-mail"></i> Sammelmail Jahresgespräche vorbereiten</td><td style="text-align:right;color:var(--mut)">Freitag</td></tr>
+</table></div>
+</div>
+</section>
+
+<section id="v-kunden" style="display:none">
+<div class="cmd"><button><i class="ti ti-plus"></i>Neu</button><button id="mailbtn"><i class="ti ti-mail"></i><span id="mailtxt">Sammelmail</span></button><button><i class="ti ti-download"></i>Export</button><button><i class="ti ti-refresh"></i>Aktualisieren</button></div>
+<div class="page">
+<h1>Meine aktiven Kunden <i class="ti ti-chevron-down" style="font-size:18px"></i></h1>
+<div class="chips" id="kf"><span class="chip on" data-f="all">Alle</span><span class="chip" data-f="Interessent">Interessent</span><span class="chip" data-f="Petent">Petent</span><span class="chip" data-f="Bestandskunde">Bestandskunde</span><input type="text" id="ks" class="f" placeholder="Kunden filtern" style="margin-left:8px"></div>
+<p class="err" id="err">Wähle mindestens einen Kunden aus.</p>
+<div class="card"><table><thead><tr><th style="width:34px"><span class="bx" id="all"><i class="ti ti-check"></i></span></th><th>Name</th><th>Typ</th><th>Ansprechpartner</th><th class="hide-m">Betreuer</th><th class="hide-m">Letzter Kontakt</th></tr></thead><tbody id="kb"></tbody></table></div>
+<p style="color:var(--mut);font-size:12px" id="cnt"></p>
+</div>
+</section>
+
+<section id="v-akte" style="display:none">
+<div class="cmd"><button><i class="ti ti-device-floppy"></i>Speichern</button><button><i class="ti ti-plus"></i>Vertrag anlegen</button><button><i class="ti ti-mail"></i>E-Mail</button><button data-back><i class="ti ti-arrow-left"></i>Zurück zur Liste</button></div>
+<div class="page">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:4px">
+<span style="width:44px;height:44px;border-radius:50%;background:var(--brand);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600">BS</span>
+<div style="flex:1"><div style="font-size:19px;font-weight:600;color:var(--brand)">Beispiel Stadtwerke GmbH</div><div style="color:var(--mut);font-size:13px">Kundennr. 100234 · Betreuer: Team NNK</div></div>
+<span class="bd b-best">Bestandskunde</span>
+</div>
+<div class="tabs" id="tabs"><span class="tab" data-p="0">Übersicht</span><span class="tab on" data-p="1">Verträge</span><span class="tab" data-p="2">Historie</span></div>
+
+<div class="pn">
+<div class="grid2">
+<div class="fld"><div class="l">Ansprechpartner</div><div class="v">Erika Mustermann</div></div>
+<div class="fld"><div class="l">E-Mail</div><div class="v">e.mustermann@beispiel.example</div></div>
+<div class="fld"><div class="l">Anschlusspunkt</div><div class="v">UW Beispielstadt</div></div>
+<div class="fld"><div class="l">Spannungsebene</div><div class="v">110 kV</div></div>
+<div class="fld"><div class="l">Verträge</div><div class="v">4, davon 2 in Bearbeitung</div></div>
+<div class="fld"><div class="l">Letzter Kontakt</div><div class="v">vor 2 Tagen</div></div>
+</div></div>
+
+<div class="pn on">
+<div class="chips" id="vf"><span class="chip on" data-f="all">Alle</span><span class="chip" data-f="bearb">In Bearbeitung</span><span class="chip" data-f="fertig">Abgeschlossen</span></div>
+<div class="card"><table><thead><tr><th>Vertrag</th><th>Status</th><th>Ablage in ELO</th><th class="hide-m">Zuständig</th><th class="hide-m">Stand</th></tr></thead><tbody id="vb"></tbody></table></div>
+</div>
+
+<div class="pn">
+<div class="card"><table>
+<tr><td><i class="ti ti-mail"></i> Sammelmail versendet</td><td style="color:var(--mut)">vor 2 Tagen</td></tr>
+<tr><td><i class="ti ti-phone"></i> Telefonat zur Netzanschlusskapazität</td><td style="color:var(--mut)">vor 1 Woche</td></tr>
+<tr><td><i class="ti ti-file-text"></i> Änderungsvertrag angelegt</td><td style="color:var(--mut)">vor 3 Wochen</td></tr>
+</table></div></div>
+</div>
+</section>
+
+<section id="v-vorgang" style="display:none">
+<div class="cmd"><button><i class="ti ti-device-floppy"></i>Speichern</button><button id="nextst"><i class="ti ti-arrow-right"></i>Nächste Phase</button><button><i class="ti ti-paperclip"></i>Dokument</button></div>
+<div class="page">
+<h1>Muster Industriepark AG <span class="bd b-pet" style="font-weight:400">Petent</span></h1>
+<div style="color:var(--mut);margin:-6px 0 12px">Netzanschlussbegehren</div>
+<div class="bpf" id="bpf"></div>
+<div class="grid2">
+<div class="fld"><div class="l">Leistung</div><div class="v">80 MW</div></div>
+<div class="fld"><div class="l">Spannungsebene</div><div class="v">110 kV</div></div>
+<div class="fld"><div class="l">Gewünschter Anschluss</div><div class="v">Q4 2028</div></div>
+<div class="fld"><div class="l">Zuständig</div><div class="v">Team NNK</div></div>
+<div class="fld"><div class="l">Ablage in ELO</div><div class="v"><span class="elo"><i class="ti ti-folder"></i>Netzkunden/Muster Industriepark/Anfrage</span></div></div>
+<div class="fld"><div class="l">Nächste Wiedervorlage</div><div class="v">in 5 Tagen</div></div>
+</div>
+</div>
+</section>
+
+<section id="v-auswertung" style="display:none">
+<div class="cmd"><button><i class="ti ti-download"></i>Export</button><button><i class="ti ti-filter"></i>Zeitraum</button></div>
+<div class="page">
+<h1>Auswertung</h1>
+<h2>Vorgänge nach Phase</h2>
+<div class="card" style="padding:14px">
+<div class="bar"><span class="n">Anfrage</span><div class="f2" style="width:40%"></div><span>5</span></div>
+<div class="bar"><span class="n">Prüfung</span><div class="f2" style="width:55%"></div><span>7</span></div>
+<div class="bar"><span class="n">Zusage</span><div class="f2" style="width:25%"></div><span>3</span></div>
+<div class="bar"><span class="n">Reservierung</span><div class="f2" style="width:15%"></div><span>2</span></div>
+</div>
+<h2>Verträge nach Status</h2>
+<div class="card" style="padding:14px">
+<div style="display:flex;height:22px;border-radius:2px;overflow:hidden"><div style="width:55%;background:var(--olive)"></div><div style="width:30%;background:var(--brand)"></div><div style="width:15%;background:var(--teal)"></div></div>
+<div style="display:flex;gap:18px;font-size:12px;color:var(--mut);margin-top:6px"><span>Abgeschlossen 55 %</span><span>In Bearbeitung 30 %</span><span>Zur Unterschrift 15 %</span></div>
+</div>
+</div>
+</section>
+
+</div></div>
+
+<div class="mo" id="mo"><div class="dlg">
+<h3><i class="ti ti-mail"></i> Sammelmail</h3>
+<div class="lab">An</div><div class="to" id="to"></div>
+<div class="lab">Vorlage</div>
+<select id="tpl"><option value="0">Information an Bestandskunden</option><option value="1">Einladung Jahresgespräch</option><option value="2">Leere Mail</option></select>
+<div class="lab">Betreff</div><input type="text" id="subj">
+<div class="lab">Nachricht</div><textarea id="body" rows="7"></textarea>
+<div style="font-size:12px;color:var(--mut);margin-top:4px">Platzhalter werden pro Kunde automatisch befüllt. Der Versand wird in der Kundenakte protokolliert.</div>
+<div style="display:flex;gap:8px;margin-top:14px;align-items:center"><button class="btn" id="send">Senden</button><button class="btn sec" id="cancel">Schließen</button></div>
+<div class="msg" id="ok"></div>
+</div></div>
+
+<script>
+var K=[
+{n:"Beispiel Stadtwerke GmbH",t:"Bestandskunde",a:"Erika Mustermann",b:"Team NNK",l:"vor 2 Tagen"},
+{n:"Beispiel Netz AG",t:"Bestandskunde",a:"Max Beispiel",b:"Team NNK",l:"vor 1 Woche"},
+{n:"Demo Rechenzentrum GmbH",t:"Interessent",a:"Jana Demo",b:"Team NNK",l:"vor 3 Tagen"},
+{n:"Muster Industriepark AG",t:"Petent",a:"Peter Muster",b:"Team NNK",l:"gestern"},
+{n:"Beispiel Energie GmbH",t:"Bestandskunde",a:"Sabine Probe",b:"Team NNK",l:"vor 5 Tagen"}
+];
+var V=[
+{n:"Netzanschlussvertrag",s:"fertig",st:"Abgeschlossen",c:"ok",e:"Netzkunden/Beispiel Stadtwerke/Verträge/NAV",z:"Team NNK",d:"03/2022"},
+{n:"Änderungsvertrag Leistung",s:"bearb",st:"In Bearbeitung",c:"bear",e:"Netzkunden/Beispiel Stadtwerke/Entwürfe/ÄV_2026",z:"E. Muster",d:"Entwurf beim Kunden"},
+{n:"Reservierungsvereinbarung",s:"bearb",st:"Zur Unterschrift",c:"sig",e:"Netzkunden/Beispiel Stadtwerke/Entwürfe/RV_2026",z:"Team NNK",d:"Versand per DocuSign"},
+{n:"Projektierungsvertrag",s:"fertig",st:"Abgeschlossen",c:"ok",e:"Netzkunden/Beispiel Stadtwerke/Verträge/PV",z:"Team NNK",d:"11/2024"}
+];
+var T=[
+{s:"Information zu Ihrem Netzanschluss",b:"Sehr geehrte/r {Ansprechpartner},\n\nwir informieren Sie zu {Kundenname} über ...\n\nMit freundlichen Grüßen\nTeam NNK"},
+{s:"Einladung zum Jahresgespräch",b:"Sehr geehrte/r {Ansprechpartner},\n\nwir möchten Sie als {Kundenname} gerne zu unserem Jahresgespräch einladen ...\n\nMit freundlichen Grüßen\nTeam NNK"},
+{s:"",b:""}
+];
+var $=function(i){return document.getElementById(i)};
+var views=["start","kunden","akte","vorgang","auswertung"],navmap={start:"start",kunden:"kunden",akte:"kunden",vorgang:"vorgang",auswertung:"auswertung"};
+function show(v){views.forEach(function(x){$("v-"+x).style.display=x===v?"block":"none"});document.querySelectorAll("#nav button").forEach(function(b){b.className=b.getAttribute("data-v")===navmap[v]?"on":""});window.scrollTo(0,0)}
+document.querySelectorAll("#nav button").forEach(function(b){b.addEventListener("click",function(){show(b.getAttribute("data-v"))})});
+document.querySelector("[data-back]").addEventListener("click",function(){show("kunden")});
+var sel={},filt="all",q="";
+function cls(t){return t==="Bestandskunde"?"b-best":t==="Petent"?"b-pet":"b-int"}
+function rows(){return K.map(function(k,i){return {k:k,i:i}}).filter(function(o){return(filt==="all"||o.k.t===filt)&&o.k.n.toLowerCase().indexOf(q)>-1})}
+function render(){
+var r=rows(),h="";
+r.forEach(function(o){h+='<tr class="rw'+(sel[o.i]?' sel':'')+'" data-i="'+o.i+'"><td><span class="bx'+(sel[o.i]?' on':'')+'"><i class="ti ti-check"></i></span></td><td><a class="lnk" data-open="'+o.i+'">'+o.k.n+'</a></td><td><span class="bd '+cls(o.k.t)+'">'+o.k.t+'</span></td><td>'+o.k.a+'</td><td class="hide-m">'+o.k.b+'</td><td class="hide-m">'+o.k.l+'</td></tr>'});
+$("kb").innerHTML=h;
+var n=Object.keys(sel).filter(function(i){return sel[i]}).length;
+$("cnt").textContent=n+" von "+K.length+" ausgewählt";
+$("mailtxt").textContent=n?"Sammelmail ("+n+")":"Sammelmail";
+$("all").className="bx"+(r.length&&r.every(function(o){return sel[o.i]})?" on":"");
+$("err").style.display="none"}
+$("kb").addEventListener("click",function(e){
+var a=e.target.closest("[data-open]");if(a){e.stopPropagation();show("akte");return}
+var tr=e.target.closest("tr");if(!tr)return;var i=tr.getAttribute("data-i");sel[i]=!sel[i];render()});
+$("all").addEventListener("click",function(){var r=rows(),on=!r.every(function(o){return sel[o.i]});r.forEach(function(o){sel[o.i]=on});render()});
+$("kf").addEventListener("click",function(e){var c=e.target.closest(".chip");if(!c)return;filt=c.getAttribute("data-f");document.querySelectorAll("#kf .chip").forEach(function(x){x.className="chip"+(x===c?" on":"")});render()});
+$("ks").addEventListener("input",function(){q=$("ks").value.toLowerCase();render()});
+function chosen(){return K.filter(function(k,i){return sel[i]})}
+function tpl(){var t=T[+$("tpl").value];$("subj").value=t.s;$("body").value=t.b}
+$("mailbtn").addEventListener("click",function(){var c=chosen();$("ok").textContent="";if(!c.length){$("err").style.display="block";return}
+$("to").innerHTML=c.map(function(k){return '<span class="bd b-int">'+k.n+'</span>'}).join("");tpl();$("mo").className="mo on"});
+$("tpl").addEventListener("change",tpl);
+$("cancel").addEventListener("click",function(){$("mo").className="mo"});
+$("mo").addEventListener("click",function(e){if(e.target===$("mo"))$("mo").className="mo"});
+$("send").addEventListener("click",function(){$("ok").textContent="Beispiel: Mail an "+chosen().length+" Kunden vorbereitet, es wurde nichts versendet."});
+var tb=document.querySelectorAll("#tabs .tab"),pn=document.querySelectorAll("#v-akte .pn");
+tb.forEach(function(t){t.addEventListener("click",function(){var p=+t.getAttribute("data-p");tb.forEach(function(x,j){x.className="tab"+(j===p?" on":"")});pn.forEach(function(x,j){x.className="pn"+(j===p?" on":"")})})});
+function vrender(f){$("vb").innerHTML=V.filter(function(v){return f==="all"||v.s===f}).map(function(v){return '<tr><td><b>'+v.n+'</b></td><td><span class="bd b-'+v.c+'">'+v.st+'</span></td><td><span class="elo"><i class="ti ti-folder"></i>'+v.e+'</span></td><td class="hide-m">'+v.z+'</td><td class="hide-m">'+v.d+'</td></tr>'}).join("")}
+$("vf").addEventListener("click",function(e){var c=e.target.closest(".chip");if(!c)return;document.querySelectorAll("#vf .chip").forEach(function(x){x.className="chip"+(x===c?" on":"")});vrender(c.getAttribute("data-f"))});
+var S=["Anfrage","Prüfung","Zusage","Reservierung","Abschluss"],cur=1;
+function brender(){$("bpf").innerHTML=S.map(function(s,i){return '<div class="st'+(i<cur?' done':i===cur?' cur':'')+'" data-s="'+i+'"><i class="ti '+(i<cur?'ti-circle-check':'ti-circle')+'"></i>'+s+'</div>'}).join("")}
+$("bpf").addEventListener("click",function(e){var s=e.target.closest(".st");if(!s)return;cur=+s.getAttribute("data-s");brender()});
+$("nextst").addEventListener("click",function(){if(cur<S.length-1){cur++;brender()}});
+render();vrender("all");brender();
+</script>
+</body>
+</html>
