@@ -203,9 +203,11 @@ input[type=text],select,textarea{border:1px solid #AEB8BD;border-radius:3px;padd
 </section>
 
 <section id="v-auswertung" style="display:none">
-<div class="cmd"><button><i class="ti ti-download"></i>Export</button><button><i class="ti ti-filter"></i>Zeitraum</button></div>
+<div class="cmd"><button id="xl2"><i class="ti ti-file-spreadsheet"></i>Nach Excel exportieren</button><button><i class="ti ti-filter"></i>Zeitraum</button></div>
 <div class="page">
 <h1>Auswertung</h1>
+<div class="chips" id="rs"><span class="chip on" data-r="0">Kennzahlen</span><span class="chip" data-r="1">Aktuelle Netzanschlussbegehren (20)</span></div>
+<div id="rep0">
 <h2>Vorgänge nach Phase</h2>
 <div class="card" style="padding:14px">
 <div class="bar"><span class="n">Anfrage</span><div class="f2" style="width:40%"></div><span>5</span></div>
@@ -217,6 +219,16 @@ input[type=text],select,textarea{border:1px solid #AEB8BD;border-radius:3px;padd
 <div class="card" style="padding:14px">
 <div style="display:flex;height:22px;border-radius:2px;overflow:hidden"><div style="width:55%;background:var(--olive)"></div><div style="width:30%;background:var(--brand)"></div><div style="width:15%;background:var(--teal)"></div></div>
 <div style="display:flex;gap:18px;font-size:12px;color:var(--mut);margin-top:6px"><span>Abgeschlossen 55 %</span><span>In Bearbeitung 30 %</span><span>Zur Unterschrift 15 %</span></div>
+</div>
+</div>
+<div id="rep1" style="display:none">
+<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:6px 0 10px">
+<div class="chips" id="bf" style="margin:0"><span class="chip on" data-f="all">Alle</span><span class="chip" data-f="Eingegangen">Eingegangen</span><span class="chip" data-f="In Prüfung">In Prüfung</span><span class="chip" data-f="Zusage erteilt">Zusage erteilt</span><span class="chip" data-f="Reservierung">Reservierung</span></div>
+<span style="flex:1"></span>
+<button class="btn" id="xl"><i class="ti ti-file-spreadsheet" style="margin-right:6px"></i>Nach Excel exportieren</button>
+</div>
+<div class="card"><table><thead><tr><th class="hide-m">Nr.</th><th>Petent</th><th>Verfahren</th><th>Standort</th><th style="text-align:right">Leistung</th><th>Status</th><th class="hide-m">Eingang</th></tr></thead><tbody id="bb"></tbody></table></div>
+<p style="color:var(--mut);font-size:12px" id="bsum"></p>
 </div>
 </div>
 </section>
@@ -295,7 +307,41 @@ var S=["Anfrage","Prüfung","Zusage","Reservierung","Abschluss"],cur=1;
 function brender(){$("bpf").innerHTML=S.map(function(s,i){return '<div class="st'+(i<cur?' done':i===cur?' cur':'')+'" data-s="'+i+'"><i class="ti '+(i<cur?'ti-circle-check':'ti-circle')+'"></i>'+s+'</div>'}).join("")}
 $("bpf").addEventListener("click",function(e){var s=e.target.closest(".st");if(!s)return;cur=+s.getAttribute("data-s");brender()});
 $("nextst").addEventListener("click",function(){if(cur<S.length-1){cur++;brender()}});
-render();vrender("all");brender();
+var B=[
+["Muster Industriepark AG","RGV","Musterhausen",80,"In Prüfung","14.09.2026"],
+["Demo Rechenzentrum GmbH","Standard","Beispielstadt Süd",120,"Eingegangen","12.10.2026"],
+["Beispiel Speicher GmbH","RGV","Beispielstadt Nord",100,"In Prüfung","02.09.2026"],
+["Probe Energie AG","RGV","Probehausen",150,"Zusage erteilt","18.06.2026"],
+["Test Elektrolyse GmbH","Standard","Teststadt",60,"In Prüfung","25.08.2026"],
+["Beispiel Batteriepark KG","RGV","Beispieldorf",200,"Reservierung","03.04.2026"],
+["Muster Solar GmbH","Standard","Mustertal",45,"Eingegangen","09.10.2026"],
+["Demo Logistik AG","Standard","Demostadt",30,"In Prüfung","21.09.2026"],
+["Probe Rechenzentren GmbH","RGV","Probehausen Ost",180,"In Prüfung","30.07.2026"],
+["Beispiel Wasserstoff GmbH","RGV","Beispielstadt West",90,"Zusage erteilt","11.05.2026"],
+["Muster Speicher AG","RGV","Musterhausen Süd",120,"Reservierung","17.03.2026"],
+["Test Industriepark GmbH","Standard","Teststadt Nord",50,"Zusage erteilt","22.05.2026"],
+["Demo Energiespeicher GmbH","RGV","Demostadt Ost",75,"Eingegangen","14.10.2026"],
+["Probe Netz AG","Standard","Probetal",25,"In Prüfung","08.09.2026"],
+["Beispiel Rechenzentrum AG","RGV","Beispielstadt Nord",160,"In Prüfung","19.08.2026"],
+["Muster Elektrolyse GmbH","RGV","Mustertal Süd",110,"Zusage erteilt","28.04.2026"],
+["Test Speicher KG","RGV","Testdorf",95,"Reservierung","12.02.2026"],
+["Demo Chemiepark GmbH","Standard","Demohausen",70,"In Prüfung","01.10.2026"],
+["Probe Batteriespeicher GmbH","RGV","Probehausen West",130,"Eingegangen","16.10.2026"],
+["Beispiel Industrie AG","Standard","Beispieldorf Nord",40,"Zusage erteilt","06.07.2026"]
+];
+var SC={"Eingegangen":"b-int","In Prüfung":"b-bear","Zusage erteilt":"b-ok","Reservierung":"b-best"},bfilt="all";
+function nr(i){return "BG-2026-"+("00"+(i+1)).slice(-3)}
+function brows(){return B.map(function(b,i){return {b:b,i:i}}).filter(function(o){return bfilt==="all"||o.b[4]===bfilt})}
+function lrender(){var r=brows(),sum=0;
+$("bb").innerHTML=r.map(function(o){sum+=o.b[3];return '<tr><td class="hide-m" style="color:var(--mut)">'+nr(o.i)+'</td><td><b>'+o.b[0]+'</b></td><td>'+o.b[1]+'</td><td>'+o.b[2]+'</td><td style="text-align:right">'+o.b[3]+' MW</td><td><span class="bd '+SC[o.b[4]]+'">'+o.b[4]+'</span></td><td class="hide-m">'+o.b[5]+'</td></tr>'}).join("");
+$("bsum").textContent=r.length+" Begehren · Summe "+sum.toLocaleString("de-DE")+" MW"}
+$("bf").addEventListener("click",function(e){var c=e.target.closest(".chip");if(!c)return;bfilt=c.getAttribute("data-f");document.querySelectorAll("#bf .chip").forEach(function(x){x.className="chip"+(x===c?" on":"")});lrender()});
+$("rs").addEventListener("click",function(e){var c=e.target.closest(".chip");if(!c)return;var r=+c.getAttribute("data-r");document.querySelectorAll("#rs .chip").forEach(function(x){x.className="chip"+(x===c?" on":"")});$("rep0").style.display=r===0?"block":"none";$("rep1").style.display=r===1?"block":"none"});
+function xl(){var rows=[["Nr.","Petent","Verfahren","Standort","Leistung (MW)","Status","Eingang"]].concat(brows().map(function(o){return [nr(o.i),o.b[0],o.b[1],o.b[2],o.b[3],o.b[4],o.b[5]]}));
+var csv="\uFEFF"+rows.map(function(r){return r.join(";")}).join("\r\n");
+var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv;charset=utf-8"}));a.download="Netzanschlussbegehren.csv";document.body.appendChild(a);a.click();document.body.removeChild(a)}
+$("xl").addEventListener("click",xl);$("xl2").addEventListener("click",xl);
+render();vrender("all");brender();lrender();
 </script>
 </body>
 </html>
